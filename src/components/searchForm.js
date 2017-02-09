@@ -32,17 +32,6 @@ class SearchForm extends React.Component {
           <input type="number" name="money" placeholder="How much?" value={this.state.money} onChange={this.handleUserInput}/>
           <button onClick={this.handleSearch}>Search</button>
         </form>
-        <div>
-          {this.props.retailers ? (
-            <ul>
-              {this.props.retailers.map(retailer => {
-                return (
-                  <li key={retailer.id}>{retailer.name} {retailer.distance}</li>
-                );
-              })}
-            </ul>
-          ) : null}
-        </div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SearchForm from './components/searchForm';
+import SearchResults from './components/searchResults';
 import { search } from './actions';
 
 const mapStateTopProps = ({ retailers }) => ({ retailers });
@@ -12,7 +13,8 @@ const mapDispatchToProps = dispatch => ({
 const App = ({ retailers, search }) => {
   return (
     <div className="App">
-      <SearchForm retailers={retailers} search={search}/>
+      <SearchForm search={search}/>
+      <SearchResults retailers={retailers}/>
     </div>
   )
 };
