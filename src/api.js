@@ -9,7 +9,13 @@ const API_HOST =
         'https://admin.duberex.com';
 
 export default {
-  googleMapSearchByZipCode: zipCode => (`${GOOGLE_MAP_GEOCODING_API}/json?address=${zipCode}&key=${GOOGLE_MAP_GEOCODING_API_KEY}`),
-  retailers: state => (`${API_HOST}/retailers.json?state=${state}`),
-  products: location => (`${API_HOST}/products/geo_search.json?gps[]=${location.lat}&gps[]=${location.lng}&searchText=zoot`)
+  googleMapSearchByZipCode: zipCode => (
+    `${GOOGLE_MAP_GEOCODING_API}/json?address=${zipCode}&key=${GOOGLE_MAP_GEOCODING_API_KEY}`
+  ),
+  retailers: state => (
+    `${API_HOST}/retailers.json?state=${state}`
+  ),
+  products: location => (
+    `${API_HOST}/products/geo_search.json?gps[]=${location.lat}&gps[]=${location.lng}&searchText=zoot`
+  )
 };

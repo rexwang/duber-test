@@ -1,25 +1,37 @@
 import API from './api';
 
 export const failedRequest = error => ({ type: 'FAILED_REQUEST', data: error });
-export const receiveRetailers = data => ({ type: 'RECEIVE_DATA', data: data });
+// export const receiveRetailers = data => ({ type: 'RECEIVE_DATA', data: data });
 
 export const search = data => {
   return dispatch => {
-    fetch(API.googleMapSearchByZipCode(data.zipCode))
+    fetch(API.retailers('WA'))
       .then(res => res.json())
-      .then(json => receiveLocationInfo(json, dispatch))
+      .then(json => receiveRetailers(json, data.zipCode, dispatch))
       .catch(err => dispatch(failedRequest(err)));
   };
 };
 
-function receiveLocationInfo(data, dispatch) {
-  // const state = data.results[0].address_components[4].short_name;
-  const location = data.results[0].geometry.location;
+function receiveRetailers(retailers, zipCode, dispatch) {
+  const filteredRetailers = retailers.filter(retailer => {
+    return retailer.address !== 'Unknown';
+  });
 
-  fetch(API.products(location))
+  const requestOption = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      origin: zipCode,
+      retailers: filteredRetailers
+    })
+  };
+
+  fetch('/api/distance', requestOption)
     .then(res => res.json())
-    .then(json => dispatch(receiveRetailers({
-      retailers: json
-    })))
-    .catch(err => dispatch(failedRequest(err)));
+    .then(json => {
+      console.log(json);
+    })
 }
